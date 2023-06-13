@@ -1,8 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEditor;
+using System;
 
-public enum ButtonType
+public enum SkillPos
 { 
     Jump=0, 
     Guard, 
@@ -16,20 +18,23 @@ public class ButtonAction : MonoBehaviour
     [SerializeField] private Slider gauge;
     [SerializeField] private Slider skillSlider;
     [SerializeField] private Button skillButton;
-    [SerializeField] private ButtonType buttonType;
+    [SerializeField] private SkillPos buttonType;
 
-    private SkillAction test;
+    private SkillAction normalSkill;
+    private SkillAction PowerSkill;
+   
     private int gaugeValue = 30;
 
     private void Start()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        test = player.GetComponent<StatusComponent>().skillActions[(int)buttonType] as SkillAction;
-
+        SkillContainer skillCon  = player.GetComponent<SkillContainer>();
+        normalSkill = skillCon.normalSkillAction[(int)buttonType];
+        PowerSkill = skillCon.powerSkillAction[(int)buttonType];
     }
     public void Press()
     {
-        test.execute(out gaugeValue);
+        normalSkill.execute(out gaugeValue);
     }
 
     public void GaugeUp()
@@ -54,7 +59,7 @@ public class ButtonAction : MonoBehaviour
             skillSlider.SetValueWithoutNotify(0);
             skillButton.gameObject.SetActive(true);
             skillSlider.gameObject.SetActive(false);
-            // PowerSkill
+            PowerSkill.execute(out gaugeValue);
         }
         else
         {

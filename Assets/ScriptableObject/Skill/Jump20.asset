@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Jump20
   m_EditorClassIdentifier: 
   structSkillData:
-    abilityValue: 20
-    gaugeRaiseValue: 40
+    abilityValue: 14000000
+    gaugeRaiseValue: 1e000000
+    time: []
+    effect: []
     SkillActionName: SkillActionJump

@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: None
   m_EditorClassIdentifier: 
   structSkillData:
-    abilityValue: 0
-    gaugeRaiseValue: 0
+    abilityValue: 00000000
+    gaugeRaiseValue: 00000000
+    time: []
+    effect: []
     SkillActionName: SkillActionNone

@@ -8,6 +8,7 @@ using UnityEngine.Events;
 public class SliderButton : MonoBehaviour, IPointerClickHandler,IPointerExitHandler
 {
     public UnityEvent OnRelease;
+    public UnityEvent OnExit;
     public void OnPointerClick(PointerEventData eventData)
     {
         OnRelease.Invoke();
@@ -15,9 +16,6 @@ public class SliderButton : MonoBehaviour, IPointerClickHandler,IPointerExitHand
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if(Input.GetMouseButton(0))
-        {
-            OnRelease.Invoke();
-        }
+        OnExit.Invoke();
     }
 }

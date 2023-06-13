@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: BaseAttack
   m_EditorClassIdentifier: 
   structSkillData:
-    abilityValue: 0
-    gaugeRaiseValue: 20
+    abilityValue: 01000000
+    gaugeRaiseValue: 05000000
+    time: []
+    effect:
+    - {fileID: 1652400581503036, guid: 1f8b293f4d55bbc418cffe1b7505d6ed, type: 3}
     SkillActionName: SkillActionDamage
