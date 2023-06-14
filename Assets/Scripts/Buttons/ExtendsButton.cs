@@ -7,7 +7,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 
-public class ExtendsButton : Selectable, IPointerClickHandler,IPointerMoveHandler
+public class ExtendsButton : Selectable, IPointerUpHandler,IPointerMoveHandler
 {
     [Serializable]
     public class ButtonClickedEvent : UnityEvent { }

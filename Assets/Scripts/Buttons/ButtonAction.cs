@@ -54,7 +54,7 @@ public class ButtonAction : MonoBehaviour
 
     public void ifSkillSliderFull()
     {
-        if (skillSlider.value >= skillSlider.maxValue-5)
+        if (skillSlider.value >= skillSlider.maxValue-10)
         {
             skillSlider.SetValueWithoutNotify(0);
             skillButton.gameObject.SetActive(true);
