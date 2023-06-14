@@ -2,18 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
-
-
+/// <summary>
+/// effect 1개 사용하며 0번을 사용한다.
+/// </summary>
+[RequireComponent(typeof(StatusComponent),typeof(AttackableManager))]
 public class SkillActionDamage : SkillAction
 {
     private StatusComponent stat;
     private ParticleSystem particle;
-    public HashSet<StatusComponent> AttackList = new HashSet<StatusComponent>();
+    public AttackableManager attackableManager;
     
 
     private void Awake()
     {
-        stat = GetComponent<StatusComponent>();       
+        stat = GetComponent<StatusComponent>();
+        attackableManager = GetComponent<AttackableManager>();
     }
 
     private void Start()
@@ -23,71 +26,18 @@ public class SkillActionDamage : SkillAction
         psObject.transform.rotation = Quaternion.Euler(-90, 0, 0);
         particle = psObject.GetComponent<ParticleSystem>();
     }
-    public void OnTriggerEnter(Collider other)
-    {
-        StatusComponent stat = other.gameObject.GetComponent<StatusComponent>();
-      
-        if (stat)
-        {
-#if UNITY_EDITOR
-            Debug.Log(String.Format("{0} is Added", stat.name));
-#endif
-            AttackList.Add(stat);
-        }
 
-    }
-
-    public void OnTriggerExit(Collider other)
-    {
-        StatusComponent stat = other.gameObject.GetComponent<StatusComponent>();
-        
-        if (stat)
-        {
-            Remove(stat);
-        }
-            
-    }
 
     public bool Damage()
     {
-        bool isDied = false;
-        List<StatusComponent> dieList = new List<StatusComponent>();
         int applyedDamage = stat.CurrentStatus.damagePoint + skillData.StructSkillData.abilityValue[0];
-        foreach (var target in AttackList)
-        {
-            target.ApplyDamage(applyedDamage);
-            DamageTextManager.Instance.ShowDamageText(target.transform.position, applyedDamage.ToString(),Color.red);
-            if (!target.isActiveAndEnabled)
-                dieList.Add(target);
-        }
-
-        if(dieList.Count > 0)
-        {
-            isDied = true;
-        }
-
-
-        while(dieList.Count>0)
-        {
-            int last = dieList.Count - 1;
-            StatusComponent died = dieList[last];
-            Remove(died);
-            dieList.RemoveAt(last);
-        }
-        return isDied;
+        particle.Play();
+        return attackableManager.Damage(applyedDamage);
     }
 
-    public void Remove(StatusComponent stat)
-    {
-#if UNITY_EDITOR
-        Debug.Log(String.Format("{0} is Removed", stat.name));
-#endif
-        AttackList.Remove(stat);
-    }
 
     public override void execute(out int gaugeRate)
     {
-        particle.Play();
         if(Damage())
         {
             gaugeRate = skillData.StructSkillData.gaugeRaiseValue[0];

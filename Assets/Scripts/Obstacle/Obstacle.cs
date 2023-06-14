@@ -2,22 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Collision),typeof(Rigidbody))]
+[RequireComponent(typeof(Collision),typeof(Rigidbody),typeof(StatusComponent))]
 public class Obstacle : MonoBehaviour
 {
-    public ObjectSpawner spawner;
+    private ObjectSpawner spawner;
     private Collider cols;
     private Rigidbody rigs;
     
     [SerializeField] private float limitYSpeed;
     [SerializeField] private LayerMask mask;
 
+    ObstcleData obstcleData;
     private Collider ignored;
     private void Awake()
     {
         cols = GetComponent<Collider>();
         rigs = GetComponent<Rigidbody>();
         spawner = transform.parent.GetComponent<ObjectSpawner>();
+        obstcleData = GetComponent<StatusComponent>().BaseStatus as ObstcleData;
     }
     private void FixedUpdate()
     {
@@ -39,19 +41,11 @@ public class Obstacle : MonoBehaviour
             Vector3 rayStart = transform.position + Vector3.down * cols.bounds.extents.y;
             if(Physics.Raycast(rayStart,Vector3.down,userYSize+0.5f, mask))
             {
-                Debug.Log("hit");
-                //cols.isTrigger = true;
+                StatusComponent player = collision.gameObject.GetComponent<StatusComponent>();
+                player.ApplyDamage(obstcleData.Status.damagePoint,Color.yellow);
                 ignored = collision.collider;
                 Physics.IgnoreCollision(collision.collider, cols,true);
             }
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.CompareTag("Ground"))
-        {
-            rigs.useGravity = false;
         }
     }
 
@@ -63,4 +57,10 @@ public class Obstacle : MonoBehaviour
         Debug.DrawLine(rayStart, rayStart + Vector3.down * 2,Color.red);
     }
 #endif
+
+    public void Die()
+    {
+        GameProfile.Instance.score += obstcleData.ScorePoint;
+        gameObject.SetActive(false);
+    }
 }

@@ -25,21 +25,18 @@ public class SkillActionPowerUp : SkillAction
         }
     }
 
-    IEnumerator test()
+    IEnumerator _PowerUp()
     {
+        GameManager manager = GameManager.Instance;
         Debug.Log("DamageUp");
-        Time.timeScale = 0.1f;
+        manager.timeScaleModify(0.1f);
         particle[0].Play();
         yield return new WaitForSeconds(0.1f);
-        Time.timeScale = 1f;
+        manager.timeScaleModify(1f);
         particle[1].Play();
-
-
-
 
         // ´ëÃæ ÄíÄç
 
-        Time.timeScale = 1;
         playerStatus.CurrentStatus.damagePoint += skillData.StructSkillData.abilityValue[0];
         Invoke("EndReinforce", skillData.StructSkillData.time[0]);
     }
@@ -53,6 +50,6 @@ public class SkillActionPowerUp : SkillAction
     public override void execute(out int gaugeRate)
     {
         gaugeRate = 0;
-        StartCoroutine(test());
+        StartCoroutine(_PowerUp());
     }
 }

@@ -15,4 +15,5 @@ MonoBehaviour:
   status:
     hp: 2
     damagePoint: 1
+  scorePoint: 100
   obstacleMesh: {fileID: 0}

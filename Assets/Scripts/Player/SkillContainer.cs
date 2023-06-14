@@ -39,6 +39,9 @@ public class SkillContainer : MonoBehaviour
         {
             string skillName = data[i].StructSkillData.SkillActionName;
             Type t = Type.GetType(skillName);
+#if UNITY_EDITOR
+            Debug.Log(t.Name);
+#endif
             skillActions[i] = gameObject.AddComponent(t) as SkillAction;
             skillActions[i].init(data[i]);
         }

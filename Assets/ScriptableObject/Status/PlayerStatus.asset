@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   status:
     hp: 2
-    damagePoint: 0
+    damagePoint: 1
