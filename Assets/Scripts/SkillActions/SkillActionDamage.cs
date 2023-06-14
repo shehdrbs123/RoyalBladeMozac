@@ -9,29 +9,28 @@ using UnityEngine;
 public class SkillActionDamage : SkillAction
 {
     private StatusComponent stat;
-    private ParticleSystem particle;
     public AttackableManager attackableManager;
     
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         stat = GetComponent<StatusComponent>();
         attackableManager = GetComponent<AttackableManager>();
     }
 
-    private void Start()
+    protected override void Start()
     {
-        GameObject psObject = Instantiate(skillData.StructSkillData.effect[0],transform);
-        psObject.transform.position = transform.position + Vector3.up;
-        psObject.transform.rotation = Quaternion.Euler(-90, 0, 0);
-        particle = psObject.GetComponent<ParticleSystem>();
+        base.Start();
+        particle[0].transform.rotation = Quaternion.Euler(-90, 0, 0);
+        particle[0].transform.position += Vector3.up;
     }
 
 
     public bool Damage()
     {
         int applyedDamage = stat.CurrentStatus.damagePoint + skillData.StructSkillData.abilityValue[0];
-        particle.Play();
+        particle[0].Play();
         return attackableManager.Damage(applyedDamage);
     }
 

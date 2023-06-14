@@ -16,5 +16,6 @@ MonoBehaviour:
     abilityValue: 14000000
     gaugeRaiseValue: 1e000000
     time: []
-    effect: []
+    effect:
+    - {fileID: 1173262663564242, guid: f81ea73a47d926143906b9d543948dc0, type: 3}
     SkillActionName: SkillActionJump

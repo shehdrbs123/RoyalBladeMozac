@@ -6,23 +6,12 @@ using UnityEngine;
 public class SkillActionPowerUp : SkillAction
 {
     StatusComponent playerStatus;
-    ParticleSystem[] particle;
     // Start is called before the first frame update
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         playerStatus = GetComponent<StatusComponent>();
         
-    }
-    private void Start()
-    {
-        particle = new ParticleSystem[skillData.StructSkillData.effect.Length];
-        for (int i = 0; i < particle.Length; i++)
-        {
-            GameObject psObject = Instantiate(skillData.StructSkillData.effect[i], transform);
-            psObject.transform.position = transform.position;
-            //psObject.transform.rotation = //Quaternion.Euler(-90, 0, 0);
-            particle[i] = psObject.GetComponent<ParticleSystem>();
-        }
     }
 
     IEnumerator _PowerUp()

@@ -48,6 +48,20 @@ public class Obstacle : MonoBehaviour
             }
         }
     }
+    //private void OnCollisionStay(Collision collision)
+    //{
+    //    if (collision.collider.CompareTag("Player"))
+    //    {
+    //        Debug.Log("player");
+    //    }
+    //}
+    private void OnTriggerStay(Collider collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            Debug.Log("player");
+        }
+    }
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()

@@ -9,7 +9,6 @@ public class SkillActionJumpAttack : SkillAction
     private WaitForSeconds wait;
     private AttackableManager attackManager;
     private StatusComponent stat;
-    private ParticleSystem[] particle;
 
     enum E_JumpAttack
     {
@@ -18,24 +17,17 @@ public class SkillActionJumpAttack : SkillAction
         E_Max
     };
     // Start is called before the first frame update
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         rigid = GetComponent<Rigidbody>();
         attackManager = GetComponent<AttackableManager>();
         stat = GetComponent<StatusComponent>();
     }
 
-    private void Start()
+    protected override void Start()
     {
-        particle = new ParticleSystem[skillData.StructSkillData.effect.Length];
-        for (int i = 0; i < particle.Length; i++)
-        {
-            GameObject psObject = Instantiate(skillData.StructSkillData.effect[i], transform);
-            psObject.transform.position = transform.position ;
-            //psObject.transform.rotation = //Quaternion.Euler(-90, 0, 0);
-            particle[i] = psObject.GetComponent<ParticleSystem>();
-        }
-
+        base.Start();
         particle[(int)E_JumpAttack.Jump].transform.position = transform.position + Vector3.down;
         particle[(int)E_JumpAttack.Attack].transform.position = transform.position + Vector3.up;
 
