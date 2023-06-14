@@ -16,15 +16,11 @@ public class DamageTextManager : MonoBehaviour
         if (null == instance)
         {
             instance = this;
-            DontDestroyOnLoad(this.gameObject);
-        }
-        else
-        {
-            Destroy(this.gameObject);
         }
 
         textObjects = new Queue<GameObject>();
     }
+
     public static DamageTextManager Instance
     {
         get
@@ -45,9 +41,10 @@ public class DamageTextManager : MonoBehaviour
         }
         obj.transform.position = pos + Vector3.back;
         Text texts = obj.GetComponentInChildren<Text>();
+        obj.SetActive(true);
         texts.text = text;
         texts.color = color;
-        obj.SetActive(true);
+
     }
 
     public void ReturnText(GameObject Text)

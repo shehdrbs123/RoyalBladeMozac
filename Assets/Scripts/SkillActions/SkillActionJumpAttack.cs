@@ -36,9 +36,8 @@ public class SkillActionJumpAttack : SkillAction
 
     public IEnumerator JumpAttack()
     {
-        GameManager manager = GameManager.Instance;
         ParticleSystem AttackEffect = particle[(int)E_JumpAttack.Attack];
-        int[] directionList = { -1, 1 };
+        int[] directionList = {0, 180 };
         float currentDuration = 0;
 
         rigid.useGravity = false;
@@ -49,10 +48,10 @@ public class SkillActionJumpAttack : SkillAction
            
             int applyDamage = stat.CurrentStatus.damagePoint * skillData.StructSkillData.abilityValue[(int)E_JumpAttack.Attack];
             int chooseDirection = Random.Range(0, 2);
-            int direction = directionList[chooseDirection] * 180;
+            int direction = directionList[chooseDirection];
 
             rigid.velocity = Vector3.up * skillData.StructSkillData.abilityValue[(int)E_JumpAttack.Jump];
-            AttackEffect.transform.rotation = Quaternion.Euler(-90, 0, direction);
+            AttackEffect.transform.rotation = Quaternion.Euler(-90, direction, 0);
             AttackEffect.Play();
             attackManager.Damage(applyDamage);
             currentDuration += skillData.StructSkillData.time[(int)E_JumpAttack.Jump];
@@ -67,9 +66,10 @@ public class SkillActionJumpAttack : SkillAction
         
     }
 
-    public override void execute(out int gaugeRate)
+    public override void execute(out int gaugeRate, out float coolTime)
     {
         gaugeRate = 0;
+        coolTime = 0;
         StartCoroutine(JumpAttack());
     }
 }

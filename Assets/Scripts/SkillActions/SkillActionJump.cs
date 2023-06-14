@@ -11,6 +11,7 @@ public class SkillActionJump : SkillAction
     private Vector3 startPos;
     private Vector3 direction;
     private float distance;
+    private LayerMask mask;
     // Start is called before the first frame update
     protected override void Awake()
     {
@@ -20,7 +21,7 @@ public class SkillActionJump : SkillAction
     protected override void Start()
     {
         base.Start();
-        startPos = transform.position + Vector3.down * 1.5f;
+        mask = LayerMask.GetMask("Obstacle");
         direction = Vector3.up;
         distance = 2.7f;
     }
@@ -29,18 +30,13 @@ public class SkillActionJump : SkillAction
     {
         if (isGround)
         {
-
             particle[0].Play();
-            LayerMask mask = LayerMask.GetMask("Obstacle");
+            startPos = transform.position + Vector3.down * 1.5f;
             if (!Physics.Raycast(startPos, direction, distance, mask))
             {
                 rigid.AddForce(Vector3.up * skillData.StructSkillData.abilityValue[0], ForceMode.VelocityChange);
                 isGround = false;
                 return true;
-            }
-            else
-            {
-                Debug.Log("½ÉºÃ´Ù");
             }
         }
         return false;
@@ -62,9 +58,10 @@ public class SkillActionJump : SkillAction
         }
     }
 
-    public override void execute(out int gaugeRate)
+    public override void execute(out int gaugeRate, out float coolTime)
     {
         gaugeRate = 0;
+        coolTime = 0;
         if (Jump())
             gaugeRate = skillData.StructSkillData.gaugeRaiseValue[0];
     }

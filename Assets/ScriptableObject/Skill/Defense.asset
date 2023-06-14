@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Defense
   m_EditorClassIdentifier: 
   structSkillData:
-    abilityValue: 
+    abilityValue: 0a000000
     gaugeRaiseValue: 
     time:
-    - 0
+    - 1
+    - 1
     effect:
     - {fileID: 0}
     SkillActionName: SkillActionDefense

@@ -48,6 +48,7 @@ public class StatusComponent : MonoBehaviour
     public void ApplyDamage(int damage, Color damageTextColor)
     {
         int applyedDamage = damage;
+        
         DamageTextManager.Instance.ShowDamageText(transform.position, applyedDamage.ToString(), damageTextColor);
         if (damage >= CurrentStatus.hp)
         {

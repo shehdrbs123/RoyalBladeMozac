@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System;
 using UnityEngine;
 /// <summary>
 /// effect 1개 사용하며 0번을 사용한다.
@@ -35,8 +32,9 @@ public class SkillActionDamage : SkillAction
     }
 
 
-    public override void execute(out int gaugeRate)
+    public override void execute(out int gaugeRate,out float coolTime)
     {
+        coolTime = 0;
         if(Damage())
         {
             gaugeRate = skillData.StructSkillData.gaugeRaiseValue[0];

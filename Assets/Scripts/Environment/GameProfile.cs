@@ -27,11 +27,6 @@ public class GameProfile : MonoBehaviour
         if (null == instance)
         {
             instance = this;
-            DontDestroyOnLoad(this.gameObject);
-        }
-        else
-        {
-            Destroy(this.gameObject);
         }
 
         player = GameObject.FindGameObjectWithTag("Player");
@@ -41,6 +36,11 @@ public class GameProfile : MonoBehaviour
             Debug.Log("스코어가 추가되었습니다");
 #endif
         };
+    }
+    private void OnDisable()
+    {
+        afterScoreSet = null;
+
     }
     public static GameProfile Instance
     {

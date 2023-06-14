@@ -9,27 +9,16 @@ public class GameManager : MonoBehaviour
 
     private GameObject player;
 
-    //private bool isGameOver = false;
-
     public GameObject EndPanelPrefab;
     private GameObject EndPanel;
+    public bool isGameOver { private set; get; }
+
     void Awake()
     {
         if (null == instance)
         {
             instance = this;
-            DontDestroyOnLoad(this.gameObject);
         }
-        else
-        {
-            Destroy(this.gameObject);
-        }        
-    }
-
-    private void Start()
-    {
-        player = GameObject.FindGameObjectWithTag("Player");
-        EndPanel = Instantiate(EndPanelPrefab);
     }
     public static GameManager Instance
     {
@@ -43,10 +32,21 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        init();
+    }
+
+    private void init()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+        EndPanel = Instantiate(EndPanelPrefab);
+    }
 
     public void GameOver()
     {
         player.SetActive(false);
+        isGameOver = true;
         Invoke("_GameOverOperation", 1);
     }
     private void _GameOverOperation()
@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
 
     public void GameRestart()
     {
-        GamePause(false);
+        GamePause(false);       
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 

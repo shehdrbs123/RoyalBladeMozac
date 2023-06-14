@@ -39,7 +39,7 @@ public class ObjectSpawner : MonoBehaviour
                 GameObject obj;
                 if (!beanObjects.TryDequeue(out obj))
                 {
-                    obj = Instantiate(spawnPrefab,gameObject.transform);
+                    obj = Instantiate(spawnPrefab,transform);
                 }
                 obj.SetActive(true);
 

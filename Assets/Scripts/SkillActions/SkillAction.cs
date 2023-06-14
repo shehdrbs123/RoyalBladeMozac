@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
 
@@ -8,7 +6,7 @@ public abstract class SkillAction : MonoBehaviour
 {
     [SerializeField]
     protected SkillData skillData;
-    public SkillData SkillData { set { skillData = value; } }
+    public SkillData SkillData { set { skillData = value; } get { return skillData; } }
 
 
     protected ParticleSystem[] particle;
@@ -31,5 +29,5 @@ public abstract class SkillAction : MonoBehaviour
     {
         SkillData = _skillData;
     }
-    public abstract void execute(out int gaugeRate);
+    public abstract void execute(out int gaugeRate, out float coolTime);
 }

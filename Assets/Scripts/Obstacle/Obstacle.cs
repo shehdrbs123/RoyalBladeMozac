@@ -20,6 +20,7 @@ public class Obstacle : MonoBehaviour
         rigs = GetComponent<Rigidbody>();
         spawner = transform.parent.GetComponent<ObjectSpawner>();
         obstcleData = GetComponent<StatusComponent>().BaseStatus as ObstcleData;
+        transform.SetParent(null);
     }
     private void FixedUpdate()
     {
@@ -44,24 +45,11 @@ public class Obstacle : MonoBehaviour
                 StatusComponent player = collision.gameObject.GetComponent<StatusComponent>();
                 player.ApplyDamage(obstcleData.Status.damagePoint,Color.yellow);
                 ignored = collision.collider;
-                Physics.IgnoreCollision(collision.collider, cols,true);
+                Physics.IgnoreCollision(ignored, cols, true);
             }
         }
     }
-    //private void OnCollisionStay(Collision collision)
-    //{
-    //    if (collision.collider.CompareTag("Player"))
-    //    {
-    //        Debug.Log("player");
-    //    }
-    //}
-    private void OnTriggerStay(Collider collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            Debug.Log("player");
-        }
-    }
+   
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()
