@@ -23,7 +23,6 @@ public class SkillActionDefense : SkillAction
         while(currentTIme <= skillData.StructSkillData.time[0])
         {
             startPos = transform.position - Vector3.up * 1.5f;
-            Debug.Log("½ÃÀÛ " + startPos);
             RaycastHit hit;
             if(Physics.Raycast(startPos,direction,out hit,distance, mask))
             {

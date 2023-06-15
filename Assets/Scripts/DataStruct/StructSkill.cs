@@ -8,5 +8,7 @@ public struct StructSkill
     public int[] gaugeRaiseValue;
     public float[] time;
     public GameObject[] effect;
+    public Sprite buttonImage;
+    public Sprite FillImage;
     public string SkillActionName;
 }

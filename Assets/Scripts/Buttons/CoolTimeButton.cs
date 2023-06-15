@@ -7,6 +7,7 @@ public class CoolTimeButton : MonoBehaviour
 {
     
     [SerializeField] private Image guage;
+    [SerializeField] private Image btnImage;
     [SerializeField] private ButtonPos buttonPos;
 
     private SkillAction normalSkill;
@@ -16,9 +17,24 @@ public class CoolTimeButton : MonoBehaviour
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         SkillContainer skillCon = player.GetComponent<SkillContainer>();
-        normalSkill = skillCon.normalSkillAction[(int)buttonPos];
+        skillCon.OnSkillChange[(int)buttonPos] += ChangeSkill;
         isCanUse = true;
+        
     }
+
+    public void ChangeSkill(SkillAction normal, SkillAction power)
+    {
+        normalSkill = normal;
+        IconChange();
+    }
+
+    private void IconChange()
+    {
+        SkillData data = normalSkill.SkillData;
+        btnImage.sprite = normalSkill.SkillData.StructSkillData.buttonImage;
+        guage.sprite = data.StructSkillData.FillImage;
+    }
+
     public void Run()
     {
         if (GameManager.Instance.isGameOver)

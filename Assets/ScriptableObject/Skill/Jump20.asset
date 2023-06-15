@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   structSkillData:
     abilityValue: 14000000
-    gaugeRaiseValue: 1e000000
+    gaugeRaiseValue: 64000000
     time: []
     effect:
     - {fileID: 1173262663564242, guid: f81ea73a47d926143906b9d543948dc0, type: 3}
+    buttonImage: {fileID: 21300000, guid: 137c605350849a743b8a4644b7de27be, type: 3}
+    FillImage: {fileID: 21300000, guid: b1d1d6e6263b0b34395f97f71adf752b, type: 3}
     SkillActionName: SkillActionJump

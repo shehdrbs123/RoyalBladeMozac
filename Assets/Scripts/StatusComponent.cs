@@ -11,8 +11,20 @@ public class StatusComponent : MonoBehaviour
     private StatusData _BaseStatus;
     public StatusData BaseStatus { set { _BaseStatus = value; } get { return _BaseStatus; } }
 
-    public StructStatus MaxStatus;
-    public StructStatus CurrentStatus;
+    private StructStatus maxStatus;
+    public StructStatus MaxStatus { 
+        private set { maxStatus = value; }
+        get { return maxStatus; }
+    }
+
+    private StructStatus currentStatus;
+    public StructStatus CurrentStatus
+    {
+        private set { currentStatus = value; }
+        get { return currentStatus; }
+    }
+
+    public StructStatus reinforceStatus;
     [SerializeField]
     private UnityEvent DieOperation;
 
@@ -34,7 +46,12 @@ public class StatusComponent : MonoBehaviour
         {
 #if UNITY_EDITOR
             Debug.Log(String.Format("{0}의 체력에 변화가 있습니다 => {1} ",name, CurrentStatus.hp));
-#endif
+#endif      
+            if(MaxStatus.hp < CurrentStatus.hp)
+            {
+                currentStatus.hp = MaxStatus.hp;
+                afterCurrentHPMotify();
+            }
         };
     }
 
@@ -43,6 +60,14 @@ public class StatusComponent : MonoBehaviour
     {
         CurrentStatus = _BaseStatus.Status;
         MaxStatus = _BaseStatus.Status;
+        reinforceStatus = new StructStatus();
+    }
+
+    public void AdjustMaxStatus(ref StructStatus status)
+    {
+        maxStatus.hp += status.hp;
+        maxStatus.damagePoint += status.damagePoint;
+        afterMaxHpMotify();
     }
 
     public void ApplyDamage(int damage, Color damageTextColor)
@@ -52,12 +77,12 @@ public class StatusComponent : MonoBehaviour
         DamageTextManager.Instance.ShowDamageText(transform.position, applyedDamage.ToString(), damageTextColor);
         if (damage >= CurrentStatus.hp)
         {
-            CurrentStatus.hp = 0;
+            currentStatus.hp = 0;
             DieOperation.Invoke();
         }
         else
         {
-            CurrentStatus.hp -= damage;
+            currentStatus.hp -= damage;
         }
         afterCurrentHPMotify();
     }

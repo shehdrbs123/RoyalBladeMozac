@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Defense
   m_EditorClassIdentifier: 
   structSkillData:
-    abilityValue: 0a000000
+    abilityValue: 08000000
     gaugeRaiseValue: 
     time:
     - 1
     - 1
-    effect:
-    - {fileID: 0}
+    effect: []
+    buttonImage: {fileID: 21300000, guid: 1815ea71c4e799e45b0db8899c240c4a, type: 3}
+    FillImage: {fileID: 21300000, guid: 361332a51c89345479d345cfffd1f6aa, type: 3}
     SkillActionName: SkillActionDefense

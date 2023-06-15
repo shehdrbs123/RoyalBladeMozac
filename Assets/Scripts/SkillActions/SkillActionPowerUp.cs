@@ -25,13 +25,13 @@ public class SkillActionPowerUp : SkillAction
 
         // ´ëÃæ ÄíÄç
 
-        playerStatus.CurrentStatus.damagePoint += skillData.StructSkillData.abilityValue[0];
+        playerStatus.reinforceStatus.damagePoint += skillData.StructSkillData.abilityValue[0];
         Invoke("EndReinforce", skillData.StructSkillData.time[0]);
     }
 
     private void EndReinforce()
     {
-        playerStatus.CurrentStatus.damagePoint -= skillData.StructSkillData.abilityValue[0];
+        playerStatus.reinforceStatus.damagePoint -= skillData.StructSkillData.abilityValue[0];
         particle[1].Stop();
     }
 

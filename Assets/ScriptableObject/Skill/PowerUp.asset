@@ -20,4 +20,6 @@ MonoBehaviour:
     effect:
     - {fileID: 1822826418782532, guid: 7bfa717c06cd39a4caa982d7615971fe, type: 3}
     - {fileID: 1739096776086156, guid: 4d6d0b6c98562024e8896ae6e3312f74, type: 3}
+    buttonImage: {fileID: 21300000, guid: aec9671c61ed1894f9f5f6d49dbefd4e, type: 3}
+    FillImage: {fileID: 21300000, guid: 9eca7cb955330b94b835a54aef9514fe, type: 3}
     SkillActionName: SkillActionPowerUp
